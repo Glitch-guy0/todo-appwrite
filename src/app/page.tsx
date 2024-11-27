@@ -7,7 +7,7 @@ export default function todoPage() {
       id: 1,
       title: "Task 1",
       description: "Description 1",
-      completed: false,
+      completed: true,
     },
     {
       id: 2,
@@ -22,23 +22,27 @@ export default function todoPage() {
       <div className=" h-full flex flex-col gap-4 mt-4 mx-2 ">
         {/* show tasks here */}
 
-        <div className="bg-zinc-700/20 rounded-lg flex overflow-hidden">
-          <input type="checkbox" className="ml-4 rounded-full outline-none " />
-          <div className="px-4 py-2">
-            <h1 className="text-xl text-white/90">Tasks</h1>
-            <p className="text-sm text-white/70">
-              Lorem, ipsum dolor sit amet consectetur adipisicing elit. Placeat
-              facilis ducimus, dicta dignissimos quasi ut dolores mollitia
-              cupiditate vitae quis.
-            </p>
+        {tasks.map((task) => (
+          <div className="bg-zinc-700/20 rounded-lg flex overflow-hidden" key={task.id}>
+            <input
+              type="checkbox"
+              className="ml-4 rounded-full outline-none"
+              checked={task.completed}
+              // onClick={() => console.log("clicked")}
+            />
+            <div className="px-4 py-2 flex-grow">
+              <h1 className="text-xl text-white/90">{task.title}</h1>
+              <p className="text-sm text-white/70">
+                {task.description}
+              </p>
+            </div>
+            <button className="h-full bg-rose-700 w-[15%] sm:w-[5%] flex items-center justify-center">
+              <FaTrash />
+            </button>
           </div>
-          <button className="h-full bg-rose-700 w-[30%] sm:w-[5%] flex items-center justify-center">
-            <FaTrash />
-          </button>
-        </div>
+        ))}
 
         {/* end of this shit */}
-        
       </div>
     </div>
   );
