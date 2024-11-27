@@ -24,17 +24,11 @@ export default function todoPage() {
 
         {tasks.map((task) => (
           <div className="bg-zinc-700/20 rounded-lg flex overflow-hidden" key={task.id}>
-            <input
-              type="checkbox"
-              className="ml-4 rounded-full outline-none"
-              checked={task.completed}
-              // onClick={() => console.log("clicked")}
-            />
             <div className="px-4 py-2 flex-grow">
               <h1 className="text-xl text-white/90">{task.title}</h1>
-              <p className="text-sm text-white/70">
+              {/* <p className="text-sm text-white/70">
                 {task.description}
-              </p>
+              </p> */}
             </div>
             <button className="h-full bg-rose-700 w-[15%] sm:w-[5%] flex items-center justify-center">
               <FaTrash />
