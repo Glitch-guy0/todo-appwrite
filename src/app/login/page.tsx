@@ -1,6 +1,5 @@
 "use client";
-
-import sendMail from "@/appwrite/auth/sendMail";
+import axios from "axios";
 import { useState } from "react";
 
 export default function loginPage() {
@@ -13,8 +12,8 @@ export default function loginPage() {
     e.preventDefault();
     setLoading(true);
     try {
-      const res = await sendMail(email);
-      if (res) {
+      const {data} = await axios.post("/api/login",{email});
+      if (data.status) {
         setShowSuccess(true);
       } else {
         setShowError(true);
