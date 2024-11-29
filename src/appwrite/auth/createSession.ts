@@ -1,6 +1,6 @@
 import AppwriteConnect from "../account";
 
-export default function verifySession(userID: string, secret: string) {
+export default function createSession(userID: string, secret: string) {
   try {
     const account = AppwriteConnect();
     account
