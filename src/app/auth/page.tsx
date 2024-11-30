@@ -14,7 +14,12 @@ export default function MagicLogin() {
       console.log(userId, secret);
       try {
         if(userId && secret){
-          axios.post("/api/session", { userId, secret });
+          const res = (async () => await axios.post("/api/session", { userId, secret }))()
+          res.then((obj) => {
+            if(!obj.data.status){
+              setError(true);
+            }
+          })
         }
       } catch (err) {
         setError(true);
