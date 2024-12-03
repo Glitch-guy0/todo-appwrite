@@ -5,9 +5,12 @@ import { NextRequest, NextResponse } from "next/server";
 export async function POST(request: NextRequest) { 
   const { userId, secret } = await request.json();
   try{
-    const userStatus = await createSession(userId, secret);
-    if(userStatus){
-      return NextResponse.json({ status: true });
+    const userSession = await createSession(userId, secret);
+    
+    if(userSession){
+      const response = NextResponse.json({status: true});
+      response.cookies.set("user", userSession, {httpOnly: true, secure: true, maxAge: 30*24*60*60});
+      return response;
     }else{
       throw new Error();
     }

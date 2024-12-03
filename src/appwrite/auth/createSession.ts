@@ -5,8 +5,7 @@ export default async function createSession(userID: string, secret: string) {
     const account = AppwriteConnect();
     const response = await account?.createSession(userID, secret);
     if (response) {
-      console.log(await response);
-      return true;
+      return response.userId;
     }
   } catch (err) {
     console.log("something went wrong");

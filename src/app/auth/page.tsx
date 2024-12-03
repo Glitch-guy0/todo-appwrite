@@ -1,9 +1,13 @@
 "use client";
 
 import axios from "axios";
+import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 
+
 export default function MagicLogin() {
+  const router = useRouter();
+
   const [error, setError] = useState(false);
 
   useEffect(() => {
@@ -11,13 +15,14 @@ export default function MagicLogin() {
       const searchParams = new URLSearchParams(window.location.search);
       const userId = searchParams.get("userId");
       const secret = searchParams.get("secret");
-      console.log(userId, secret);
       try {
         if(userId && secret){
           const res = (async () => await axios.post("/api/session", { userId, secret }))()
           res.then((obj) => {
             if(!obj.data.status){
               setError(true);
+            }else{
+              router.push("/todo");
             }
           })
         }

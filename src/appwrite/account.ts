@@ -5,7 +5,7 @@ export default function AppwriteConnect(){
   try{
     const client = new Client()
       .setEndpoint('https://cloud.appwrite.io/v1')
-      .setProject(process.env.PROJECT_ID!); 
+      .setProject(process.env.NEXT_PUBLIC_PROJECT_ID!); 
     const account = new Account(client);
     return account;
   } catch (error) {
