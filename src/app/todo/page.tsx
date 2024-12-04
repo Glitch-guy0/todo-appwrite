@@ -1,42 +1,40 @@
+"use client";
+
 import { IoIosAddCircle } from "react-icons/io";
 import { FaTrash } from "react-icons/fa6";
+import { useEffect, useState } from "react";
+import { Database } from "@/appwrite/account";
+import axios from "axios";
 
 export default function todoPage() {
-  const tasks = [
-    {
-      id: 1,
-      title: "Task 1",
-      description: "Description 1",
-      completed: true,
-    },
-    {
-      id: 2,
-      title: "Task 2",
-      description: "Description 2",
-      completed: false,
-    },
-  ];
+
+
+  const [tasks, setTasks] = useState<any>(null);
+
+  useEffect(() => {
+    (async function(){
+      const tasks = await axios.get("/api/tasks");
+      setTasks(tasks.data.tasks);
+    })()
+  }, []);
+
+
   return (
     <div className="w-full max-w-[800px] mx-auto relative h-svh flex flex-col">
+      {/* same file */}
       <InputTask />
       <div className=" h-full flex flex-col gap-4 mt-4 mx-2 ">
-        {/* show tasks here */}
 
-        {tasks.map((task) => (
-          <div className="bg-zinc-700/20 rounded-lg flex overflow-hidden" key={task.id}>
+        {tasks && tasks.map((task: { $id: string; Task: string;}) => (
+          <div className="bg-zinc-700/20 rounded-lg flex overflow-hidden" key={task.$id}>
             <div className="px-4 py-2 flex-grow">
-              <h1 className="text-xl text-white/90">{task.title}</h1>
-              {/* <p className="text-sm text-white/70">
-                {task.description}
-              </p> */}
+              <h1 className="text-xl text-white/90">{task.Task}</h1>
             </div>
             <button className="h-full bg-rose-700 w-[15%] sm:w-[5%] flex items-center justify-center">
               <FaTrash />
             </button>
           </div>
         ))}
-
-        {/* end of this shit */}
       </div>
     </div>
   );
