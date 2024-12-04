@@ -59,6 +59,7 @@ function InputTask() {
 
   async function submitHandler(e: { preventDefault: () => void }) {
     e.preventDefault();
+    if(task.length < 1) return;
     try {
       const res = await axios.post("/api/tasks", { task });
       if (res.data.status) {
@@ -85,9 +86,7 @@ function InputTask() {
           />
           <button onClick={(e) => submitHandler(e)}>
             <IoIosAddCircle
-              className={`text-[40px] text-zinc-700 ${
-                task ? "text-sky-700" : ""
-              }`}
+              className={`text-[40px] text-zinc-700 ${task && "text-sky-700"}`}
             />
           </button>
         </form>
