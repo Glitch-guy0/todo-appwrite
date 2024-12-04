@@ -10,8 +10,10 @@ export default function todoPage() {
 
   useEffect(() => {
     (async function () {
-      const tasks = await axios.get("/api/tasks");
-      setTasks(tasks.data.tasks);
+      const timeout = setTimeout(async () => {
+        const tasks = await axios.get("/api/tasks");
+        setTasks(tasks.data.tasks);
+      }, 3000);
     })();
   },[tasks]);
 
