@@ -3,14 +3,16 @@ import type { NextRequest } from "next/server";
 
 // This function can be marked `async` if using `await` inside
 export async function middleware(request: NextRequest) {
-
   const isUser = await request.cookies.get("user");
-  if (request.nextUrl.pathname === "/todo" || request.nextUrl.pathname === "/") {
-    if (await isUser) {
+  if (await isUser) {
+    if (request.nextUrl.pathname === "/") {
       return NextResponse.redirect(new URL("/todo", request.url));
-    } else {
-      return NextResponse.redirect(new URL("/login", request.url));
     }
+    if (request.nextUrl.pathname === "/todo") {
+      return NextResponse.next();
+    }
+  } else {
+    return NextResponse.redirect(new URL("/login", request.url));
   }
 }
 
