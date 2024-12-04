@@ -3,10 +3,11 @@ import type { NextRequest } from "next/server";
 
 // This function can be marked `async` if using `await` inside
 export async function middleware(request: NextRequest) {
+
   const isUser = await request.cookies.get("user");
-  if (request.nextUrl.pathname === "/todo") {
+  if (request.nextUrl.pathname === "/todo" || request.nextUrl.pathname === "/") {
     if (await isUser) {
-      return NextResponse.next();
+      return NextResponse.redirect(new URL("/todo", request.url));
     } else {
       return NextResponse.redirect(new URL("/login", request.url));
     }
@@ -15,5 +16,5 @@ export async function middleware(request: NextRequest) {
 
 // See "Matching Paths" below to learn more
 export const config = {
-  matcher: "/todo",
+  matcher: ["/todo", "/"],
 };
